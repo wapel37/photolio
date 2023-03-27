@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ config.general['title'] }}{% endblock %}
+
+{% block before_content %}
+  <div class="p-5 bg-black text-white">
+    <p class="h1">Welcome to Photolio!</p>
+    <p>Photolio is nothing more than just the simplest form of photographer portfolio :)</p>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <p class="h1">Albums:</p>
+  <div class="row">
+    {% for album in albums if album.public or current_user.is_authenticated %}
+      <div class="col-lg-3 col-md-4 col-6 p-3">
+        <div class="album-cover {% if not album.public %}text-danger{% endif %}">
+          <a href="{{ album.url }}">
+            <img class="rounded" src="{{ album.thumbnail.url }}">
+          </a>
+          <p>{{ album }}</p>
+        </div>
+      </div>
+    {% else %}
+      <p>No albums to show</p>
+    {% endfor %}
+  </div>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ album }} - {{ config.general['title'] }}{% endblock %}
+
+{% block content %}
+<h1>{{ album }}</h1>
+
+{% if current_user.is_authenticated %}
+  <div class="container-fluid pt-2">
+    <form method="post">
+      <input type="hidden" name="public" value="{{ not album.public }}" />
+      <div class="input-group">
+        <span class="input-group-text">{% if album.public %}Public{% else %}Private{% endif %}</span>
+        <input type="submit" class="btn btn-success" value="Change" />
+      </div>
+    </form>
+  </div>
+{% endif %}
+
+<hr>
+
+<div class="row">
+{% for index, photo in album.enumerated %}
+  <div class="col-lg-3 col-md-4 col-6 p-3">
+    <div class="rounded photo" onclick="show({{ index }})">
+      <img class="p-0 m-0 bg-black rounded" src="{{ photo.thumbnail.url }}">
+      <div class="rounded-top">
+        {% for line in photo.info.split('\n') %}
+          {{ line }}<br>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+
+<div class="photo_modal" style="display: none;" onclick="hide()">
+  <img class="photo_modal_image" src="">
+</div>
+
+<script>
+thumbnails = [{% for photo in album %}"{{ photo.thumbnail.url }}", {% endfor %}];
+addresses = [{% for photo in album %}"{{ photo.url }}", {% endfor %}];
+showing_index = -1;
+
+photo_modal = document.getElementsByClassName('photo_modal')[0];
+photo_modal_img = photo_modal.getElementsByTagName('img')[0];
+
+function show(index) {
+  photo_modal_img.src = "";
+  photo_modal_img.src = thumbnails[index];
+  photo_modal_img.src = addresses[index];
+  photo_modal.style.display = "block";
+  showing_index = index;
+}
+
+function hide() {
+  photo_modal.style.display = "none";
+  photo_modal_img.src = "";
+  showing_index = -1;
+}
+
+function prev() {
+  if (showing_index > 0)
+    show(showing_index - 1);
+  else
+    hide();
+}
+
+function next() {
+  if (showing_index < addresses.length - 1)
+    show(showing_index + 1);
+}
+
+document.onkeydown = checkKey;
+
+function checkKey(e) {
+  e = e || window.event;
+  if (e.keyCode == '27') hide();
+  if (e.keyCode == '37') prev();
+  if (e.keyCode == '39') next();
+}
+
+</script>
+
+{% endblock %}

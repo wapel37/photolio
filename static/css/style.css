@@ -1,0 +1,84 @@
+/* yup, im doing bootstrap 5 + custom css, coz bs5 is stupid */
+
+/* album covers */
+
+.album-cover a {
+    overflow: hidden;
+}
+
+.album-cover a img {
+    aspect-ratio: 1 / 1;
+    background-color: black;
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    transition: all 0.08s ease-in-out;
+}
+
+.album-cover a:hover img {
+    transform: scale(0.97)
+}
+
+/* photo thumbnails */
+
+.photo {
+    position: relative;
+    aspect-ratio: 1 / 1;
+}
+
+.photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.photo div {
+    display: none;
+
+    width: 100%;
+    //height: 100%;
+    margin: 0;
+    padding: 0.5em;
+    background-color: #0004;
+    //text-shadow: 1px 1px 3px #000;
+    text-shadow: 0 0 2px black, 0 0 5px black;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.photo:hover div {
+    display: block;
+}
+
+/* gallery */
+
+.photo_modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000b;
+    z-index: 10000;
+}
+
+.photo_modal_image {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 95%;
+    max-height: 95%;
+    object-fit: contain;
+
+    background-color: black;
+}

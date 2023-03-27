@@ -1,0 +1,8 @@
+[general]
+title="Photolio"
+owner="wapel37"
+link="https://github.com/wapel37"
+
+[storage]
+albums='~/albums/'
+cache='/tmp/photolio/'

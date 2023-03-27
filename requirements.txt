@@ -1,0 +1,5 @@
+Flask~=2.2.3
+pillow~=9.4.0
+flask-login
+exif~=1.6.0
+toml~=0.10.2
